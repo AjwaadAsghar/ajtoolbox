@@ -12,8 +12,7 @@ export const site = {
     studio: "AJ Studios",
     url: "https://ajwaadasghar.com",
   },
-  // TODO: replace with your real contact address.
-  email: "[YOUR_EMAIL]",
+  email: "ajwaadasghar@gmail.com",
   twitterHandle: undefined as string | undefined, // e.g. "@ajwaad"
   locale: "en_US",
   // Bump when you edit /privacy.

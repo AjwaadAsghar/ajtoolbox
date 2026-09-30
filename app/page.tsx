@@ -3,6 +3,7 @@ import { AboutStrip } from "@/components/home/AboutStrip";
 import { Hero } from "@/components/home/Hero";
 import { Manifesto } from "@/components/home/Manifesto";
 import { MarqueeBand } from "@/components/home/MarqueeBand";
+import { Preloader } from "@/components/home/Preloader";
 import { Principles } from "@/components/home/Principles";
 import { ToolGrid } from "@/components/home/ToolGrid";
 import { JsonLd, websiteJsonLd } from "@/components/seo/JsonLd";
@@ -19,6 +20,10 @@ export const metadata = buildMetadata({
 export default function HomePage() {
   return (
     <>
+      <Preloader />
+      <noscript>
+        <style>{"#preloader{display:none!important}html{overflow:auto!important}"}</style>
+      </noscript>
       <JsonLd data={websiteJsonLd()} />
       <Hero />
       <MarqueeBand />

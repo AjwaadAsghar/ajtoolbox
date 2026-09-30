@@ -1,11 +1,11 @@
+import { MoreSoonCard } from "@/components/ui/MoreSoonCard";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/Reveal";
 import { ToolCard } from "@/components/ui/ToolCard";
-import { getAllTools, getLiveTools } from "@/data/tools";
+import { getLiveTools } from "@/data/tools";
 
 export function ToolGrid() {
-  const tools = [...getAllTools()].sort((a, b) => (a.status === b.status ? 0 : a.status === "live" ? -1 : 1));
-  const live = getLiveTools().length;
-  const soon = tools.length - live;
+  const tools = getLiveTools();
+  const live = tools.length;
 
   return (
     <section id="tools" aria-labelledby="tools-title" className="container-x scroll-mt-24 pt-20 sm:pt-28">
@@ -18,19 +18,22 @@ export function ToolGrid() {
         </Reveal>
         <Reveal delay={0.1} className="max-w-sm text-muted">
           <p>
-            <span className="font-mono text-fg">{String(live).padStart(2, "0")}</span> live,{" "}
-            <span className="font-mono text-fg">{String(soon).padStart(2, "0")}</span> in the workshop. Every tool is free
-            and runs entirely on your device.
+            <span className="font-mono text-fg">{String(live).padStart(2, "0")}</span> live, more on the way. Every tool
+            is free and runs entirely on your device.
           </p>
         </Reveal>
       </div>
 
       <Stagger className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
         {tools.map((tool, i) => (
-          <StaggerItem key={tool.slug} className={i === 0 && tool.status === "live" ? "sm:col-span-2" : ""}>
-            <ToolCard tool={tool} priority={i === 0} featured={i === 0 && tool.status === "live"} />
+          // The first tool gets a wide card while the toolbox is small
+          <StaggerItem key={tool.slug} className={i === 0 && tools.length < 3 ? "sm:col-span-2" : ""}>
+            <ToolCard tool={tool} priority={i === 0} featured={i === 0 && tools.length < 3} />
           </StaggerItem>
         ))}
+        <StaggerItem>
+          <MoreSoonCard />
+        </StaggerItem>
       </Stagger>
     </section>
   );

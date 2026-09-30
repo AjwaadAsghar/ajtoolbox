@@ -6,7 +6,7 @@ import { setupGsap } from "@/lib/gsap";
 
 const PRINCIPLES = [
   { n: "01", title: "Free. Like, actually free.", body: "No trials, no “premium” tier, no credit card. A few ads keep the lights on. That's the whole business model." },
-  { n: "02", title: "Your stuff stays yours.", body: "Tools run in your browser. Webcam feeds, PDFs and images are processed on your device and never uploaded." },
+  { n: "02", title: "Your stuff stays yours.", body: "Tools run in your browser. Webcam feeds and files are processed on your device and never uploaded." },
   { n: "03", title: "No sign-up. Ever.", body: "Open the page, use the tool, leave. We genuinely do not want your email address." },
   { n: "04", title: "Fast as heck.", body: "Lightweight pages that load instantly, even on hotel Wi-Fi. Tools start working the moment you land." },
   { n: "05", title: "Slightly unhinged.", body: "Some tools are useful. Some are cursed hamsters. We think the internet needs both." },

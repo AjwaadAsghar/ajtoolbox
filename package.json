@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit",
-    "posters": "node scripts/render-hero-posters.mjs"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@gsap/react": "2.1.2",
@@ -27,8 +26,6 @@
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@types/three": "0.186.0",
-    "puppeteer-core": "^25.12.0",
-    "sharp": "^0.35.5",
     "tailwindcss": "4.3.3",
     "typescript": "5.9.3"
   }

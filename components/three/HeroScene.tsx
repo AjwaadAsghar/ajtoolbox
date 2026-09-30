@@ -80,7 +80,7 @@ function Material({ kind, color, tier }: { kind: MatKind; color: string; tier: Q
     case "gloss":
       return <meshPhysicalMaterial color={color} roughness={0.28} metalness={0.05} clearcoat={1} clearcoatRoughness={0.06} />;
     default:
-      return <meshPhysicalMaterial color={color} roughness={0.7} metalness={0} clearcoat={0.25} clearcoatRoughness={0.5} sheen={0.4} sheenColor="#ffffff" />;
+      return <meshPhysicalMaterial color={color} roughness={0.7} metalness={0} clearcoat={0.25} clearcoatRoughness={0.5} />;
   }
 }
 
@@ -159,7 +159,7 @@ function Objects({ tier }: { tier: QualityTier }) {
   const ringPos = useMemo(() => new THREE.Vector3(), []);
   const scatterPos = useMemo(() => new THREE.Vector3(), []);
   const size = useThree((s) => s.size);
-  // Object count follows screen size (so it matches the pre-rendered poster); tier only affects materials.
+  // Fewer objects on phone-width screens; tier only affects materials.
   const small = size.width < 768;
   const items = useMemo(() => (small ? ITEMS.filter((i) => i.lite) : ITEMS), [small]);
 
@@ -257,7 +257,7 @@ export default function HeroScene({
       frameloop={active ? "always" : "never"}
       camera={{ position: [0, 0, 9], fov: 35, near: 0.1, far: 60 }}
       gl={{ antialias: tier === "high", alpha: true, powerPreference: "high-performance", stencil: false }}
-      onCreated={({ gl }) => {
+      onCreated={({ gl, scene, camera }) => {
         gl.toneMapping = THREE.ACESFilmicToneMapping;
         gl.toneMappingExposure = 1.05;
         gl.domElement.addEventListener(
@@ -268,8 +268,10 @@ export default function HeroScene({
           },
           { once: true },
         );
-        // Wait two frames so shaders are compiled before we fade out the fallback
-        requestAnimationFrame(() => requestAnimationFrame(onReady));
+        // Compile every shader up front (in parallel where KHR_parallel_shader_compile exists),
+        // then wait two frames so the first visible frame is fully rendered before the reveal.
+        const reveal = () => requestAnimationFrame(() => requestAnimationFrame(onReady));
+        gl.compileAsync(scene, camera).then(reveal, reveal);
       }}
       aria-hidden="true"
     >
@@ -280,7 +282,7 @@ export default function HeroScene({
       <pointLight position={[5, -3, 2]} intensity={15} color={ACCENT} />
 
       {/* Procedural studio environment, rendered once, no HDR download */}
-      <Environment resolution={tier === "high" ? 256 : 64} frames={1}>
+      <Environment resolution={tier === "high" ? 128 : 64} frames={1}>
         <Lightformer form="rect" intensity={3} position={[0, 5, -2]} scale={[10, 3, 1]} />
         <Lightformer form="rect" intensity={2} color={VIOLET} position={[-6, 0, 2]} rotation-y={Math.PI / 2} scale={[8, 4, 1]} />
         <Lightformer form="rect" intensity={1.5} color={ACCENT} position={[6, -1, 1]} rotation-y={-Math.PI / 2} scale={[6, 3, 1]} />

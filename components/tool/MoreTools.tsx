@@ -1,11 +1,11 @@
 import Link from "next/link";
+import { MoreSoonCard } from "@/components/ui/MoreSoonCard";
 import { ToolCard } from "@/components/ui/ToolCard";
 import { getRelatedTools } from "@/data/tools";
 
-/** Internal links to other tools (good for users and for crawl depth). CSS-only reveal, no Framer. */
+/** Internal links to other tools (good for users and for crawl depth), plus a "more soon" teaser. CSS-only reveal. */
 export function MoreTools({ currentSlug }: { currentSlug: string }) {
-  const related = getRelatedTools(currentSlug, 3);
-  if (related.length === 0) return null;
+  const related = getRelatedTools(currentSlug, 2);
 
   return (
     <section aria-labelledby="more-tools-title" className="container-x mt-28">
@@ -13,7 +13,7 @@ export function MoreTools({ currentSlug }: { currentSlug: string }) {
         <div>
           <p className="eyebrow mb-4">Keep exploring</p>
           <h2 id="more-tools-title" className="font-display text-[clamp(2rem,4vw,3.2rem)] font-extrabold">
-            More tools
+            {related.length > 0 ? "More tools" : "What's next"}
           </h2>
         </div>
         <Link href="/#tools" prefetch={false} className="shrink-0 text-sm text-muted transition-colors hover:text-fg">
@@ -26,6 +26,9 @@ export function MoreTools({ currentSlug }: { currentSlug: string }) {
             <ToolCard tool={tool} />
           </li>
         ))}
+        <li className="scroll-reveal">
+          <MoreSoonCard />
+        </li>
       </ul>
     </section>
   );

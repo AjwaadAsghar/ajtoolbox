@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { getAllTools, getLiveTools } from "@/data/tools";
+import { getLiveTools } from "@/data/tools";
 import { buildMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
@@ -12,7 +12,6 @@ export const metadata = buildMetadata({
 
 export default function AboutPage() {
   const live = getLiveTools().length;
-  const total = getAllTools().length;
 
   return (
     <>
@@ -29,9 +28,9 @@ export default function AboutPage() {
       <div className="container-x mt-16 grid gap-16 lg:grid-cols-[minmax(0,46rem)_1fr]">
         <div className="prose-aj">
           <p>
-            I build little things for the internet. Some of them are genuinely useful, like compressing a PDF without
-            handing it to a random server. Some of them are a cursed hamster that reacts to your hand gestures. Both
-            felt worth making.
+            I build little things for the internet. Some are meant to be genuinely useful, and they do their job right
+            in your browser without handing your stuff to a random server. Some are a cursed hamster that reacts to
+            your hand gestures. Both feel worth making.
           </p>
           <h2>Why this exists</h2>
           <p>
@@ -77,8 +76,8 @@ export default function AboutPage() {
               <dd className="font-display text-5xl font-extrabold text-accent">{live}</dd>
             </div>
             <div>
-              <dt className="text-sm text-muted">In the workshop</dt>
-              <dd className="font-display text-5xl font-extrabold">{total - live}</dd>
+              <dt className="text-sm text-muted">Files uploaded</dt>
+              <dd className="font-display text-5xl font-extrabold">0</dd>
             </div>
             <div>
               <dt className="text-sm text-muted">Sign-ups required</dt>

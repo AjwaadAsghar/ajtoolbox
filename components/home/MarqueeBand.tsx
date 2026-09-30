@@ -1,7 +1,7 @@
 import { Marquee } from "@/components/ui/Marquee";
 
 const TOP = ["No sign-up", "Runs in your browser", "Free forever", "Zero uploads", "Built for fun"];
-const BOTTOM = ["Webcam", "PDF", "Memes", "Images", "Utilities", "Chaos"];
+const BOTTOM = ["Webcam", "Memes", "Useful", "Weird", "Fast", "Chaos"];
 
 /** Two counter-rotated marquee bands. Pure CSS animation. */
 export function MarqueeBand() {

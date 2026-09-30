@@ -2,41 +2,36 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
-import { HeroPoster } from "./HeroPoster";
-import { heroState } from "./heroState";
+import { heroState, setLoadProgress } from "./heroState";
 import { detectQualityTier, type QualityTier } from "./quality";
 
 // three.js + R3F live in their own chunk, never rendered on the server.
-const HeroScene = dynamic(() => import("./HeroScene"), { ssr: false });
+const loadScene = () => import("./HeroScene");
+const HeroScene = dynamic(loadScene, { ssr: false });
 
 /**
  * Client shell around the 3D hero:
- *  - paints a pre-rendered poster of the real scene instantly (and keeps it for reduced motion / weak devices)
- *  - loads the WebGL scene on the first interaction, then cross-fades once it has rendered
+ *  - starts loading the WebGL scene immediately and reports progress to the homepage preloader
+ *  - reduced-motion / low-power devices skip 3D entirely (text-only hero) and release the preloader
  *  - pauses rendering when the hero is off-screen
  */
 export function HeroVisual() {
   const wrap = useRef<HTMLDivElement>(null);
   const [tier, setTier] = useState<QualityTier | null>(null);
-  const [load, setLoad] = useState(false);
   const [ready, setReady] = useState(false);
   const [inView, setInView] = useState(true);
 
-  // The poster already looks identical, so hand over to live WebGL on the first interaction
-  // (mouse move, touch, scroll, key). Keeps three.js entirely off the critical path.
   useEffect(() => {
     const t = detectQualityTier();
     setTier(t);
-    if (t === "off") return;
-
-    const events = ["pointermove", "pointerdown", "touchstart", "wheel", "scroll", "keydown"] as const;
-    const cleanup = () => events.forEach((e) => window.removeEventListener(e, go));
-    const go = () => {
-      cleanup();
-      setLoad(true);
-    };
-    events.forEach((e) => window.addEventListener(e, go, { once: true, passive: true }));
-    return cleanup;
+    if (t === "off") {
+      setLoadProgress(1);
+      return;
+    }
+    setLoadProgress(0.5);
+    loadScene()
+      .then(() => setLoadProgress(0.8))
+      .catch(() => setLoadProgress(1));
   }, []);
 
   // Pause when off-screen
@@ -60,14 +55,9 @@ export function HeroVisual() {
     return () => window.removeEventListener("pointermove", onMove);
   }, [tier]);
 
-  const showCanvas = load && tier !== null && tier !== "off";
-
   return (
     <div ref={wrap} className="absolute inset-0" aria-hidden="true">
-      <div className={`absolute inset-0 transition-opacity duration-700 ${ready ? "opacity-0" : "opacity-100"}`}>
-        <HeroPoster />
-      </div>
-      {showCanvas && (
+      {tier !== null && tier !== "off" && (
         <div
           data-hero-canvas={ready ? "ready" : "loading"}
           className={`absolute inset-0 transition-opacity duration-700 ${ready ? "opacity-100" : "opacity-0"}`}
@@ -75,10 +65,14 @@ export function HeroVisual() {
           <HeroScene
             tier={tier}
             active={inView}
-            onReady={() => setReady(true)}
+            onReady={() => {
+              setReady(true);
+              setLoadProgress(1);
+            }}
             onLost={() => {
               setReady(false);
               setTier("off");
+              setLoadProgress(1);
             }}
           />
         </div>
