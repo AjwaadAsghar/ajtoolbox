@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { mainNav, site } from "@/lib/site";
-import { LogoMark } from "./Logo";
+import { Logo } from "./Logo";
 
 export function Header() {
   return (
@@ -11,7 +11,7 @@ export function Header() {
           className="flex h-14 items-center justify-between rounded-2xl border border-line bg-ink/70 pl-3 pr-2 backdrop-blur-xl supports-[backdrop-filter]:bg-ink/40"
         >
           <Link href="/" prefetch={false} className="group flex items-center gap-2.5" aria-label={`${site.name} home`}>
-            <LogoMark className="size-8 transition-transform duration-500 ease-out-expo group-hover:-rotate-12" />
+            <Logo className="h-8 w-auto transition-transform duration-500 ease-out-expo group-hover:-translate-x-0.5 group-hover:-rotate-3" />
             <span className="hidden font-display text-lg font-bold tracking-tight sm:inline">
               AJ<span className="text-muted"> Toolbox</span>
             </span>

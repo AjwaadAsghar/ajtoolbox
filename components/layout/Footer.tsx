@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { footerNav, site } from "@/lib/site";
-import { LogoMark } from "./Logo";
+import { Logo } from "./Logo";
 
 export function Footer() {
   return (
@@ -9,7 +9,7 @@ export function Footer() {
         <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
           <div className="max-w-sm">
             <Link href="/" prefetch={false} className="flex w-fit items-center gap-2.5" aria-label={`${site.name} home`}>
-              <LogoMark className="size-9" />
+              <Logo className="h-10 w-auto" />
               <span className="font-display text-xl font-bold">AJ Toolbox</span>
             </Link>
             <p className="mt-4 text-sm text-muted">
