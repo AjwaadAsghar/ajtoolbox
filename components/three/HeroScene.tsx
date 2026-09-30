@@ -22,7 +22,7 @@ type Item = {
   /** Exploded position mid-scroll (some fly past the camera) */
   scatter: V3;
   spin: V3;
-  /** Included on low-power devices */
+  /** Included on small (phone-width) screens */
   lite?: boolean;
 };
 
@@ -153,13 +153,15 @@ function Shape({ item, tier }: { item: Item; tier: QualityTier }) {
 }
 
 function Objects({ tier }: { tier: QualityTier }) {
-  const items = useMemo(() => (tier === "high" ? ITEMS : ITEMS.filter((i) => i.lite)), [tier]);
   const root = useRef<THREE.Group>(null);
   const refs = useRef<(THREE.Group | null)[]>([]);
   const target = useMemo(() => new THREE.Vector3(), []);
   const ringPos = useMemo(() => new THREE.Vector3(), []);
   const scatterPos = useMemo(() => new THREE.Vector3(), []);
   const size = useThree((s) => s.size);
+  // Object count follows screen size (so it matches the pre-rendered poster); tier only affects materials.
+  const small = size.width < 768;
+  const items = useMemo(() => (small ? ITEMS.filter((i) => i.lite) : ITEMS), [small]);
 
   useFrame((state, delta) => {
     const dt = Math.min(delta, 1 / 30);

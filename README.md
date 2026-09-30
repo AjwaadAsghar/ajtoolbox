@@ -72,7 +72,8 @@ Then update the hamster entry's `howTo` / `faq` in `data/tools.ts` so they descr
 
 ## Performance notes
 
-- three.js is never in the initial bundle. It's fetched only on capable devices, after the first interaction (or idle on high-end desktops), with a CSS fallback shown meanwhile. Tiers: `high` / `low` (phones, ≤4 cores) / `off` (reduced motion, Save-Data, no WebGL, weak hardware). The canvas pauses off-screen and falls back if the WebGL context is lost.
+- The hero paints instantly from **pre-rendered posters of the real 3D scene** (`public/hero/poster-*.webp`). The live three.js scene loads on the first interaction (mouse move, touch, scroll, key) and cross-fades in from an identical frame, so the swap is invisible and three.js stays off the critical path. **If you change the 3D scene, regenerate the posters:** `npm run build && npm start`, then `npm run posters` in a second terminal.
+- Tiers: `high` / `low` (phones, ≤4 cores: cheaper materials) / `off` (reduced motion, Save-Data, no WebGL, weak hardware: poster only). Phone-width screens show 5 objects, larger screens 8. The canvas pauses off-screen and falls back to the poster if the WebGL context is lost.
 - Tool pages ship no three.js and no GSAP; they use CSS scroll-driven reveals.
 - Links pointing to `/` use `prefetch={false}` so tool pages don't download homepage JS.
 - `prefers-reduced-motion`: no Lenis, no pinning, no 3D, no scrubbed animations.
