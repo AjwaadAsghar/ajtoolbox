@@ -1,0 +1,4 @@
+# ads.txt for ajtoolbox.com
+# Once AdSense approves you, replace pub-XXXXXXXXXXXXXXXX with your publisher ID
+# (the same digits as NEXT_PUBLIC_ADSENSE_CLIENT_ID, without the "ca-" prefix) and delete the leading "# ".
+# google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
