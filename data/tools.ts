@@ -33,6 +33,11 @@ export type Tool = {
   tags: ToolTag[];
   thumbnail: { src: string; alt: string };
   status: ToolStatus;
+  /**
+   * Served by its own Next.js app, proxied in at /{slug} by the rewrite in next.config.ts.
+   * Gets a card, sitemap entry and links here, but no page of its own.
+   */
+  separateApp?: boolean;
   seo: { title: string; description: string; keywords?: string[] };
   /** Card/OG glow colour. Falls back to the site accent. */
   accent?: string;
@@ -47,7 +52,7 @@ export type Tool = {
 
 export const tools: Tool[] = [
   {
-    slug: "hamster",
+    slug: "cursed-hamster",
     name: "Cursed Hamster Cam",
     shortDescription: "Make hand gestures on your webcam and a cursed hamster reacts in real time.",
     longDescription:
@@ -55,6 +60,7 @@ export const tools: Tool[] = [
     tags: ["Webcam", "Meme"],
     thumbnail: { src: "/thumbnails/hamster.svg", alt: "Cursed hamster reacting to a hand gesture on a webcam feed" },
     status: "live",
+    separateApp: true,
     accent: "#ff8a3d",
     category: "EntertainmentApplication",
     dateAdded: "2026-10-01",
@@ -92,6 +98,8 @@ export const tools: Tool[] = [
 
 export const getAllTools = () => tools;
 export const getLiveTools = () => tools.filter((t) => t.status === "live");
+/** Live tools rendered by this app's /[slug] route. */
+export const getPageTools = () => getLiveTools().filter((t) => !t.separateApp);
 export const getToolBySlug = (slug: string) => tools.find((t) => t.slug === slug);
 
 /** Other tools to cross-link: live ones first, then those sharing tags, then the rest. */

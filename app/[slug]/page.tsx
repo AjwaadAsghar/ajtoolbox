@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { breadcrumbJsonLd, faqJsonLd, JsonLd, toolJsonLd } from "@/components/seo/JsonLd";
 import { ToolLayout } from "@/components/tool/ToolLayout";
-import { getLiveTools, getToolBySlug } from "@/data/tools";
+import { getPageTools, getToolBySlug } from "@/data/tools";
 import { buildMetadata } from "@/lib/seo";
 import { toolComponents } from "@/tools";
 
@@ -12,13 +12,13 @@ type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return getLiveTools().map((t) => ({ slug: t.slug }));
+  return getPageTools().map((t) => ({ slug: t.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const tool = getToolBySlug(slug);
-  if (!tool || tool.status !== "live") return {};
+  if (!tool || tool.status !== "live" || tool.separateApp) return {};
   return {
     ...buildMetadata({
       title: tool.seo.title,
@@ -34,7 +34,7 @@ export default async function ToolPage({ params }: Props) {
   const { slug } = await params;
   const tool = getToolBySlug(slug);
   const ToolUI = toolComponents[slug];
-  if (!tool || tool.status !== "live" || !ToolUI) notFound();
+  if (!tool || tool.status !== "live" || tool.separateApp || !ToolUI) notFound();
 
   const jsonLd = [
     toolJsonLd(tool),

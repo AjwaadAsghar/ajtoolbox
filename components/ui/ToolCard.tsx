@@ -137,8 +137,19 @@ export function ToolCard({
     );
   }
 
+  const linkProps = { className: "block h-full rounded-3xl", "aria-label": `${tool.name}: ${tool.shortDescription}` };
+
+  // A separate app isn't a route in this one, so it needs a full page load.
+  if (tool.separateApp) {
+    return (
+      <a href={`/${tool.slug}`} {...linkProps}>
+        {body}
+      </a>
+    );
+  }
+
   return (
-    <Link href={`/${tool.slug}`} className="block h-full rounded-3xl" aria-label={`${tool.name}: ${tool.shortDescription}`}>
+    <Link href={`/${tool.slug}`} {...linkProps}>
       {body}
     </Link>
   );

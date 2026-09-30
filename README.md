@@ -40,35 +40,14 @@ public/                   ads.txt, thumbnails/, noise.png
 ## Adding a new tool
 
 1. **Registry**: add an entry to `data/tools.ts` (slug, name, descriptions, tags, thumbnail, SEO, `howTo`, `explainer`, `faq`). Keep `status: "coming-soon"` while you build: it shows as a locked card and gets **no page and no sitemap entry**.
-2. **UI**: create `tools/<slug>/index.tsx` (mount wrapper) + `tools/<slug>/<Name>Tool.tsx` (copy the hamster folder as a template).
+2. **UI**: create `tools/<slug>/index.tsx` (mount wrapper) + `tools/<slug>/<Name>Tool.tsx` (copy `tools/hamster/` as a template; it's an unused placeholder).
 3. **Register**: add `"<slug>": YourTool` to `tools/index.ts`.
 4. **Thumbnail**: drop an image in `public/thumbnails/` (1600×1000 WebP/PNG recommended).
 5. Flip `status` to `"live"`. The route, homepage card, sitemap, metadata, OG image and JSON-LD all appear automatically.
 
-## Integrating the hamster tool
+## Cursed Hamster (separate app)
 
-Everything goes in `tools/hamster/`. The page, SEO text, ads and layout are already wired to `/hamster`.
-
-**If your tool is React:**
-1. Replace `tools/hamster/HamsterTool.tsx` with your component (keep `"use client"` and a default export).
-2. Move assets (hamster images/GIFs, sounds, MediaPipe `.task` / `.tflite` / wasm files) into `public/tools/hamster/` and reference them as `/tools/hamster/...`.
-3. `npm install` any libraries it uses (e.g. `@mediapipe/tasks-vision`).
-4. **Keep the idle screen light** (the "Start camera" state). It's server-rendered and is the page's LCP. Load the heavy stuff *on click*:
-   ```ts
-   const start = async () => {
-     const { HandLandmarker, FilesetResolver } = await import("@mediapipe/tasks-vision");
-     // ...getUserMedia, model init, render loop
-   };
-   ```
-5. Don't touch `window`/`navigator` at module top level or during render; do it in effects/handlers. If that's impossible, use the `ssr: false` variant documented in `tools/hamster/index.tsx`.
-6. Stop the camera on unmount (`stream.getTracks().forEach(t => t.stop())`). The placeholder shows how.
-7. Size: the frame is full width. Give your root element a stable height (e.g. `aspect-video` on desktop, a `min-h` on mobile) so nothing jumps when the camera starts.
-
-**If it's plain HTML/JS:** either port the script into a `useEffect` in `HamsterTool.tsx` (best for SEO and speed), or as a quick path put the built files in `public/tools/hamster/app/` and render
-`<iframe src="/tools/hamster/app/index.html" allow="camera" className="aspect-video w-full rounded-2xl" />`.
-(The site's `Permissions-Policy` already allows the camera on its own origin.)
-
-Then update the hamster entry's `howTo` / `faq` in `data/tools.ts` so they describe the real gestures.
+`/cursed-hamster` is not built here. It's its own Next.js app ([Cursed-Hamster-public](https://github.com/AjwaadAsghar/Cursed-Hamster-public), `web/`, `basePath: "/cursed-hamster"`) deployed to Vercel, and `next.config.ts` rewrites `/cursed-hamster/*` to that deployment (override with `CURSED_HAMSTER_ORIGIN`). Its registry entry has `separateApp: true`, so it gets a card, a sitemap entry and links, but no `/[slug]` page. Links to it use a plain `<a>` (a full page load), because it isn't a route in this app.
 
 ## Performance notes
 

@@ -31,15 +31,20 @@ export default function NotFound() {
         >
           Take me home
         </Link>
-        {tools.map((t) => (
-          <Link
-            key={t.slug}
-            href={`/${t.slug}`}
-            className="inline-flex h-13 items-center rounded-full border border-line bg-white/[0.04] px-7 font-semibold transition-colors hover:bg-white/[0.08]"
-          >
-            Try {t.name}
-          </Link>
-        ))}
+        {tools.map((t) => {
+          const className =
+            "inline-flex h-13 items-center rounded-full border border-line bg-white/[0.04] px-7 font-semibold transition-colors hover:bg-white/[0.08]";
+          // Separate apps need a full page load (see ToolCard).
+          return t.separateApp ? (
+            <a key={t.slug} href={`/${t.slug}`} className={className}>
+              Try {t.name}
+            </a>
+          ) : (
+            <Link key={t.slug} href={`/${t.slug}`} className={className}>
+              Try {t.name}
+            </Link>
+          );
+        })}
       </div>
     </section>
   );

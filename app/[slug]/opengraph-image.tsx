@@ -1,4 +1,4 @@
-import { getLiveTools, getToolBySlug } from "@/data/tools";
+import { getPageTools, getToolBySlug } from "@/data/tools";
 import { ogSize, renderOg } from "@/lib/og";
 
 export const alt = "AJ Toolbox tool preview";
@@ -6,7 +6,7 @@ export const size = ogSize;
 export const contentType = "image/png";
 
 export function generateStaticParams() {
-  return getLiveTools().map((t) => ({ slug: t.slug }));
+  return getPageTools().map((t) => ({ slug: t.slug }));
 }
 
 export default async function ToolOgImage({ params }: { params: Promise<{ slug: string }> }) {
