@@ -3,7 +3,7 @@
  */
 export const site = {
   name: "AJ Toolbox",
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://ajtoolbox.com").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.ajtoolbox.com").replace(/\/$/, ""),
   tagline: "Free web tools. Built different.",
   description:
     "AJ Toolbox is a growing collection of free, fast, slightly unhinged web tools that run right in your browser. No sign-ups, no uploads, no nonsense.",

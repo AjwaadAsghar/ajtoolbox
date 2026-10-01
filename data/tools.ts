@@ -53,15 +53,15 @@ export type Tool = {
 export const tools: Tool[] = [
   {
     slug: "cursed-hamster",
-    name: "Cursed Hamster Cam",
-    shortDescription: "Make hand gestures on your webcam and a cursed hamster reacts in real time.",
+    name: "Cursed Hamster",
+    shortDescription: "Pull faces and gestures at your webcam and a cursed hamster copies you live. 20 hamsters to unlock.",
     longDescription:
       "A free webcam meme tool that tracks your hand gestures and answers them with a very cursed hamster. Everything runs locally in your browser, so your camera feed never leaves your device.",
     tags: ["Webcam", "Meme"],
-    thumbnail: { src: "/thumbnails/hamster.svg", alt: "Cursed hamster reacting to a hand gesture on a webcam feed" },
+    thumbnail: { src: "/thumbnails/cursed-hamster.webp", alt: "Cursed Hamster: five hamster meme pictures on a pink background" },
     status: "live",
     separateApp: true,
-    accent: "#ff8a3d",
+    accent: "#ff6fb0",
     category: "EntertainmentApplication",
     dateAdded: "2026-10-01",
     seo: {
