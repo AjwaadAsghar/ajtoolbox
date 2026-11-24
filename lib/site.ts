@@ -1,19 +1,19 @@
 /**
- * Global site config. Fill in the [PLACEHOLDERS] before launch.
+ * Global site config.
  */
 export const site = {
   name: "AJ Toolbox",
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.ajtoolbox.com").replace(/\/$/, ""),
-  tagline: "Free web tools. Built different.",
+  tagline: "Websites, software and AI automation.",
   description:
-    "AJ Toolbox is a growing collection of free, fast, slightly unhinged web tools that run right in your browser. No sign-ups, no uploads, no nonsense.",
+    "AJ Toolbox is an independent studio that designs and builds websites, custom software and AI automations for businesses, from first sketch to launch and beyond.",
   author: {
     name: "Ajwaad Asghar",
-    studio: "AJ Studios",
+    studio: "AJ Toolbox",
     url: "https://ajwaadasghar.com",
   },
   email: "ajwaadasghar@gmail.com",
-  twitterHandle: undefined as string | undefined, // e.g. "@ajwaad"
+  twitterHandle: undefined as string | undefined,
   locale: "en_US",
   // Bump when you edit /privacy.
   privacyLastUpdated: "2026-10-01",
@@ -22,14 +22,16 @@ export const site = {
 export const absoluteUrl = (path = "/") => `${site.url}${path.startsWith("/") ? path : `/${path}`}`;
 
 export const mainNav = [
-  { href: "/#tools", label: "Tools" },
+  { href: "/services", label: "Services" },
+  { href: "/work", label: "Work" },
+  { href: "/cursed-hamster", label: "Products" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
 ] as const;
 
 export const footerNav = [
-  { href: "/", label: "Home" },
+  { href: "/services", label: "Services" },
+  { href: "/work", label: "Work" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
-  { href: "/privacy", label: "Privacy Policy" },
+  { href: "/privacy", label: "Privacy" },
 ] as const;

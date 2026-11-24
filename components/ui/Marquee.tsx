@@ -2,7 +2,7 @@
 export function Marquee({
   items,
   className = "",
-  starClassName = "text-accent",
+  starClassName = "text-accent-deep",
 }: {
   items: string[];
   className?: string;

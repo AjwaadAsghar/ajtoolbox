@@ -14,7 +14,7 @@ export default function NotFound() {
     <section className="container-x relative flex min-h-[85svh] flex-col items-center justify-center pt-28 text-center">
       <p className="eyebrow mb-6 animate-fade">Error 404</p>
       <h1
-        className="font-display text-[clamp(7rem,30vw,22rem)] font-extrabold leading-[0.8] text-gradient"
+        className="font-display text-[clamp(7rem,30vw,22rem)] font-extrabold leading-[0.8]"
         aria-label="404: Page not found"
       >
         <span className="reveal-line">
@@ -22,7 +22,7 @@ export default function NotFound() {
         </span>
       </h1>
       <p className="mt-8 max-w-md text-lg text-muted animate-fade [animation-delay:0.2s]">
-        This page wandered off. Probably chasing the hamster. Let&apos;s get you somewhere useful.
+        This page doesn&apos;t exist, or it has moved.
       </p>
       <div className="mt-10 flex flex-wrap justify-center gap-3 animate-fade [animation-delay:0.3s]">
         <Link

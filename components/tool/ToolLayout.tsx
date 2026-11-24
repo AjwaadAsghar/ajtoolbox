@@ -61,7 +61,7 @@ export function ToolLayout({ tool, children }: { tool: Tool; children: ReactNode
               <TagPill key={tag} tag={tag} />
             ))}
             {local && (
-              <span className="flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-accent">
+              <span className="flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-accent-deep">
                 <span className="size-1.5 rounded-full bg-accent" aria-hidden="true" /> Runs locally
               </span>
             )}

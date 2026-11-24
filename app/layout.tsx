@@ -1,9 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { AdSenseScript } from "@/components/ads/AdSenseScript";
 import { ConsentBanner } from "@/components/consent/ConsentBanner";
 import { Background } from "@/components/layout/Background";
-import { Cursor } from "@/components/layout/Cursor";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { MotionProvider } from "@/components/layout/MotionProvider";
@@ -12,18 +11,13 @@ import { site } from "@/lib/site";
 import "./globals.css";
 
 // next/font self-hosts, preloads and size-adjusts fallbacks, so no layout shift on swap.
-const display = Bricolage_Grotesque({
-  subsets: ["latin"],
-  variable: "--font-bricolage",
-  axes: ["wdth"],
-  display: "swap",
-});
+const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-serif", display: "swap" });
 const sans = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap", preload: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: `${site.name}: Free Web Tools, Built Different`, template: `%s | ${site.name}` },
+  title: { default: `${site.name}: Websites, Software and AI Automation`, template: `%s | ${site.name}` },
   description: site.description,
   applicationName: site.name,
   authors: [{ name: site.author.name, url: site.author.url }],
@@ -37,15 +31,23 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#07070a",
-  colorScheme: "dark",
+  themeColor: "#0c0c0b",
+  colorScheme: "light dark",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
+    <html lang="en" data-theme="dark" suppressHydrationWarning className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
+      <head>
+        {/* Apply the saved or system theme before first paint (no flash) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem("theme");if(t!=="light")t="dark";document.documentElement.dataset.theme=t}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="min-h-dvh">
         <a
           href="#main"
@@ -60,7 +62,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
         </MotionProvider>
         <SmoothScroll />
-        <Cursor />
 
         {/* ===== COOKIE CONSENT (CMP) GOES HERE, must load before ads. See ConsentBanner.tsx ===== */}
         <ConsentBanner />

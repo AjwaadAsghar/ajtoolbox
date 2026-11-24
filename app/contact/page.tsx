@@ -1,61 +1,43 @@
 import { PageHeader } from "@/components/layout/PageHeader";
+import { BriefForm } from "@/components/studio/BriefForm";
 import { buildMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 export const metadata = buildMetadata({
   title: "Contact",
-  description: "Get in touch with AJ Toolbox: tool ideas, bug reports, feedback or business enquiries.",
+  description: "Start a project with AJ Toolbox: websites, custom software and AI automation.",
   path: "/contact",
 });
 
-const REASONS = [
-  { title: "Tool ideas", body: "Wish a tool existed? Describe it. If it's fun or useful, it might end up here." },
-  { title: "Bug reports", body: "Something broken? Tell me the tool, your browser and device, and what happened." },
-  { title: "Everything else", body: "Feedback, collabs, press or business stuff. The inbox is open." },
-];
-
 export default function ContactPage() {
-  const email = site.email;
-
   return (
     <>
       <PageHeader
         eyebrow="Contact"
-        title={
-          <>
-            Say <span className="text-accent">hi.</span>
-          </>
-        }
-        intro="No forms, no ticket numbers. Just email me and a real human (me) will read it."
+        title="Start a project."
+        intro="Tell us a little about what you need. You'll hear back within one working day."
       />
-
-      <div className="container-x mt-16">
-        <a
-          href={`mailto:${email}`}
-          className="group flex flex-col gap-4 rounded-[2rem] border border-line bg-surface/60 p-8 transition-colors duration-500 hover:border-accent/50 sm:flex-row sm:items-center sm:justify-between sm:p-12"
-        >
-          <span>
-            <span className="eyebrow block">Email</span>
-            <span className="mt-3 block break-all font-display text-[clamp(1.6rem,4.5vw,3.6rem)] font-extrabold transition-colors group-hover:text-accent">
-              {email}
-            </span>
-          </span>
-          <span
-            className="grid size-16 shrink-0 place-items-center rounded-full bg-accent text-2xl text-accent-ink transition-transform duration-500 ease-out-expo group-hover:-rotate-45"
-            aria-hidden="true"
-          >
-            →
-          </span>
-        </a>
-
-        <ul className="mt-6 grid gap-4 md:grid-cols-3">
-          {REASONS.map((r) => (
-            <li key={r.title} className="rounded-3xl border border-line bg-surface/40 p-7">
-              <h2 className="font-display text-2xl font-bold">{r.title}</h2>
-              <p className="mt-3 text-muted">{r.body}</p>
-            </li>
-          ))}
-        </ul>
+      <div className="container-x mt-20 grid gap-16 lg:grid-cols-[minmax(0,40rem)_1fr]">
+        <BriefForm email={site.email} />
+        <aside className="h-fit space-y-8 rounded-xl border border-line p-8 lg:sticky lg:top-28">
+          <div>
+            <p className="eyebrow mb-2">Email</p>
+            <a
+              href={`mailto:${site.email}`}
+              className="break-all text-lg underline decoration-line underline-offset-4 hover:decoration-accent-deep"
+            >
+              {site.email}
+            </a>
+          </div>
+          <div>
+            <p className="eyebrow mb-2">What happens next</p>
+            <ol className="space-y-2 text-sm text-muted">
+              <li>1. We reply with a few questions or a call link.</li>
+              <li>2. A 30-minute call to understand the project.</li>
+              <li>3. A written scope and fixed quote within a few days.</li>
+            </ol>
+          </div>
+        </aside>
       </div>
     </>
   );

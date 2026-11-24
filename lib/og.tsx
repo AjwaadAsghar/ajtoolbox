@@ -47,11 +47,11 @@ export function renderOg({
           <div style={{ fontSize: 34, color: "#9a98a6", maxWidth: 900, lineHeight: 1.3 }}>{subtitle}</div>
         </div>
         <div style={{ display: "flex", gap: 14, fontSize: 22, color: accent }}>
-          <span>Free</span>
+          <span>Websites</span>
           <span style={{ color: "#5f5d6b" }}>·</span>
-          <span>No sign-up</span>
+          <span>Software</span>
           <span style={{ color: "#5f5d6b" }}>·</span>
-          <span>Runs in your browser</span>
+          <span>AI automation</span>
         </div>
       </div>
     ),

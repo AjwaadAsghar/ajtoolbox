@@ -22,7 +22,7 @@ export function MoreSoonCard() {
         </p>
         <Link
           href="/contact"
-          className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-fg transition-colors hover:text-accent"
+          className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-fg transition-colors hover:text-accent-deep"
         >
           Suggest a tool
           <span className="transition-transform duration-500 ease-out-expo group-hover:translate-x-1" aria-hidden="true">

@@ -7,7 +7,7 @@ export const contentType = "image/png";
 export default function OpengraphImage() {
   return renderOg({
     eyebrow: "ajtoolbox.com",
-    title: "Free tools. Built different.",
-    subtitle: "Fast, fun, slightly unhinged web tools that run right in your browser.",
+    title: "Websites, software and AI automation.",
+    subtitle: "An independent studio designing and building for the web.",
   });
 }

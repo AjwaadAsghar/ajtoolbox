@@ -1,47 +1,48 @@
 import Link from "next/link";
+import { services } from "@/data/work";
 import { footerNav, site } from "@/lib/site";
-import { Logo } from "./Logo";
 
 export function Footer() {
   return (
-    <footer className="relative mt-24 border-t border-line bg-ink/40">
-      <div className="container-x py-14">
-        <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-sm">
-            <Link href="/" prefetch={false} className="flex w-fit items-center gap-2.5" aria-label={`${site.name} home`}>
-              <Logo className="h-10 w-auto" />
-              <span className="font-display text-xl font-bold">AJ Toolbox</span>
-            </Link>
-            <p className="mt-4 text-sm text-muted">
-              Free, fun web tools that run in your browser. No sign-ups, no uploads, no nonsense.
-            </p>
-          </div>
-          <nav aria-label="Footer">
-            <ul className="flex flex-wrap gap-x-6 gap-y-3 text-sm">
-              {footerNav.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} prefetch={item.href === "/" ? false : undefined} className="text-muted transition-colors hover:text-fg">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+    <footer className="mt-32 overflow-hidden border-t border-line">
+      <div className="container-x grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr]">
+        <div className="max-w-sm">
+          <p className="text-sm leading-relaxed text-muted">{site.description}</p>
+          <a
+            href={`mailto:${site.email}`}
+            className="mt-5 inline-block text-sm underline decoration-line underline-offset-4 hover:decoration-accent-deep"
+          >
+            {site.email}
+          </a>
         </div>
-        <div className="mt-12 flex flex-col gap-3 border-t border-line pt-6 text-xs text-dim sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © 2026 AJ Toolbox. Built by{" "}
-            <a
-              href={site.author.url}
-              target="_blank"
-              rel="noopener"
-              className="text-muted underline decoration-accent/60 underline-offset-4 transition-colors hover:text-accent"
-            >
-              AJ Studios
-            </a>
-          </p>
-          <p className="font-mono uppercase tracking-[0.18em]">Runs in your browser. Always.</p>
-        </div>
+        <nav aria-label="Services">
+          <p className="eyebrow mb-4">Services</p>
+          <ul className="space-y-2.5 text-sm">
+            {services.map((s) => (
+              <li key={s.id}>
+                <Link href={`/services#${s.id}`} className="text-muted transition-colors hover:text-fg">
+                  {s.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <nav aria-label="Footer">
+          <p className="eyebrow mb-4">Studio</p>
+          <ul className="space-y-2.5 text-sm">
+            {footerNav.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="text-muted transition-colors hover:text-fg">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+      <div className="container-x flex flex-col gap-2 border-t border-line py-6 text-xs text-dim sm:flex-row sm:justify-between">
+        <p>© 2026 AJ Toolbox. All rights reserved.</p>
+        <p>Founded by {site.author.name}</p>
       </div>
     </footer>
   );

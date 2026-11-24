@@ -1,95 +1,55 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { getLiveTools } from "@/data/tools";
+import { ContactCta } from "@/components/studio/Sections";
 import { buildMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 export const metadata = buildMetadata({
   title: "About",
-  description: `AJ Toolbox is a collection of free, fun web tools built by ${site.author.name}. No sign-ups, no uploads, just tools that work in your browser.`,
+  description: `AJ Toolbox is an independent studio founded by ${site.author.name}, building websites, software and AI automation.`,
   path: "/about",
 });
 
-export default function AboutPage() {
-  const live = getLiveTools().length;
+const PRINCIPLES = [
+  { title: "Small on purpose", text: "You work directly with the person building your project. No account managers, no hand-offs." },
+  { title: "Plain answers", text: "Fixed quotes, honest timelines, and a straight answer when something isn't worth building." },
+  { title: "Built to last", text: "Modern, documented code you own outright, on infrastructure that's cheap to run." },
+];
 
+export default function AboutPage() {
   return (
     <>
       <PageHeader
         eyebrow="About"
-        title={
-          <>
-            Hi, I&apos;m <span className="text-accent">AJ.</span>
-          </>
-        }
-        intro={`AJ Toolbox is a collection of free, fun web tools built by ${site.author.name}.`}
+        title="A small studio that ships."
+        intro={`AJ Toolbox started as a place for ${site.author.name} to publish small web tools. It's now a studio building websites, software and automation for other businesses.`}
       />
-
-      <div className="container-x mt-16 grid gap-16 lg:grid-cols-[minmax(0,46rem)_1fr]">
+      <div className="container-x mt-20 grid gap-16 lg:grid-cols-[minmax(0,42rem)_1fr]">
         <div className="prose-aj">
           <p>
-            I build little things for the internet. Some are meant to be genuinely useful, and they do their job right
-            in your browser without handing your stuff to a random server. Some are a cursed hamster that reacts to
-            your hand gestures. Both feel worth making.
-          </p>
-          <h2>Why this exists</h2>
-          <p>
-            Every time I needed a simple tool online, I&apos;d find one buried under sign-up walls, upload limits,
-            watermarks and &ldquo;upgrade to Pro&rdquo; pop-ups. So I started building my own and putting them here, for
-            free, for everyone.
-          </p>
-          <h2>The rules I build by</h2>
-          <ul>
-            <li>
-              <strong>Free, for real.</strong> No trials, no paywalls. Ads keep the site running.
-            </li>
-            <li>
-              <strong>Private by default.</strong> Wherever possible, tools run entirely in your browser. Your webcam
-              feed, files and images stay on your device.
-            </li>
-            <li>
-              <strong>No accounts.</strong> You&apos;ll never need to sign up for anything here.
-            </li>
-            <li>
-              <strong>Fast.</strong> Tools should load instantly and work on your phone too.
-            </li>
-          </ul>
-          <h2>Got an idea?</h2>
-          <p>
-            If there&apos;s a tool you wish existed (or one of mine is broken), <Link href="/contact">tell me</Link>. The
-            best ideas usually come from people who are annoyed at something.
+            The tools are still here. <a href="/cursed-hamster">Cursed Hamster</a> is one of them, and it shows how we
+            work: fast, careful about performance, and finished.
           </p>
           <p>
-            AJ Toolbox is part of{" "}
-            <a href={site.author.url} target="_blank" rel="noopener">
-              AJ Studios
-            </a>
-            .
+            Most of our time now goes to client work. That includes the website for Stealth Performance Co, a tuning shop
+            in Orlando, and both the public website and the full learning management system for Chembridge, a chemistry
+            academy. The LMS has student, admin and parent portals, past papers, tests, live classes and attendance.
+          </p>
+          <p>
+            If you need a site, an internal tool or an automation that saves your team hours every week,{" "}
+            <Link href="/contact">get in touch</Link>.
           </p>
         </div>
-
-        <aside className="h-fit rounded-3xl border border-line bg-surface/60 p-8 lg:sticky lg:top-28">
-          <p className="eyebrow mb-6">By the numbers</p>
-          <dl className="grid grid-cols-2 gap-6">
-            <div>
-              <dt className="text-sm text-muted">Live tools</dt>
-              <dd className="font-display text-5xl font-extrabold text-accent">{live}</dd>
-            </div>
-            <div>
-              <dt className="text-sm text-muted">Files uploaded</dt>
-              <dd className="font-display text-5xl font-extrabold">0</dd>
-            </div>
-            <div>
-              <dt className="text-sm text-muted">Sign-ups required</dt>
-              <dd className="font-display text-5xl font-extrabold">0</dd>
-            </div>
-            <div>
-              <dt className="text-sm text-muted">Price</dt>
-              <dd className="font-display text-5xl font-extrabold">$0</dd>
-            </div>
-          </dl>
-        </aside>
+        <ul className="h-fit space-y-px overflow-hidden rounded-xl border border-line bg-line">
+          {PRINCIPLES.map((p) => (
+            <li key={p.title} className="bg-ink p-7">
+              <h2 className="text-lg font-semibold">{p.title}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{p.text}</p>
+            </li>
+          ))}
+        </ul>
       </div>
+      <ContactCta />
     </>
   );
 }
