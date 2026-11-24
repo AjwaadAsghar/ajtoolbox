@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { services } from "@/data/work";
 import { site } from "@/lib/site";
+import { CalendlyEmbed } from "./CalendlyEmbed";
 
 export function SectionHead({ index, eyebrow, title, aside }: { index: string; eyebrow: string; title: React.ReactNode; aside?: React.ReactNode }) {
   return (
@@ -74,24 +74,32 @@ export function TechMarquee() {
 
 export function ContactCta() {
   return (
-    <section className="container-x mt-32">
-      <Reveal className="cta-panel relative overflow-hidden rounded-3xl bg-fg text-ink px-7 py-16 sm:px-14 sm:py-24">
-        <div className="relative grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <p className="eyebrow !text-ink/60">Next step</p>
-            <h2 className="mt-5 max-w-3xl text-[clamp(2.6rem,6vw,5.5rem)] leading-[0.95]">Have a project in mind? <em className="opacity-60">Let&apos;s talk.</em></h2>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed opacity-70">
-              Tell us what you&apos;re building and where you&apos;re stuck. You&apos;ll get a reply within one working day.
-            </p>
+    <section id="book" className="container-x mt-32 scroll-mt-24">
+      <Reveal className="cta-panel relative overflow-hidden rounded-3xl bg-fg p-3 text-ink sm:p-4">
+        <div className="relative grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
+          <div className="flex flex-col justify-between gap-12 px-5 py-10 sm:px-10 sm:py-14">
+            <div>
+              <p className="eyebrow !text-ink/60">Next step</p>
+              <h2 className="mt-5 text-[clamp(2.6rem,5vw,4.75rem)] leading-[0.95]">
+                Have a project in mind? <em className="opacity-60">Let&apos;s talk.</em>
+              </h2>
+              <p className="mt-6 max-w-md text-lg leading-relaxed opacity-70">
+                Pick a time for a free consultation and it lands straight in our calendar. Prefer to write? Email us and you&apos;ll hear back within one working day.
+              </p>
+            </div>
+
+            <div>
+              <a href={`mailto:${site.email}`} className="group flex items-center justify-between rounded-2xl border border-ink/15 px-6 py-5 transition-colors hover:bg-ink/5">
+                <span>
+                  <span className="block text-xs uppercase tracking-widest opacity-60">Email us</span>
+                  <span className="mt-1 block text-lg font-medium">{site.email}</span>
+                </span>
+                <span className="text-xl transition-transform group-hover:translate-x-1" aria-hidden="true">↗</span>
+              </a>
+            </div>
           </div>
-          <div className="flex flex-col items-start gap-4">
-            <Link href="/contact" className="btn-primary">
-              Start a project <span aria-hidden="true">→</span>
-            </Link>
-            <a href={`mailto:${site.email}`} className="text-sm opacity-70 underline underline-offset-4 transition-opacity hover:opacity-100">
-              {site.email}
-            </a>
-          </div>
+
+          <CalendlyEmbed />
         </div>
       </Reveal>
     </section>

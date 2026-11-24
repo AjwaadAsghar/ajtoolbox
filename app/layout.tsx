@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0c0c0b",
+  themeColor: "#f4f2ed",
   colorScheme: "light dark",
   width: "device-width",
   initialScale: 1,
@@ -39,12 +39,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark" suppressHydrationWarning className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
+    <html lang="en" data-theme="light" suppressHydrationWarning className={`${serif.variable} ${sans.variable} ${mono.variable}`}>
       <head>
         {/* Apply the saved or system theme before first paint (no flash) */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem("theme");if(t!=="light")t="dark";document.documentElement.dataset.theme=t}catch(e){}`,
+            __html: `try{var t=localStorage.getItem("theme");if(t!=="dark")t="light";document.documentElement.dataset.theme=t}catch(e){}`,
           }}
         />
       </head>
