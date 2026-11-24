@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { JsonLd, websiteJsonLd } from "@/components/seo/JsonLd";
-import { ImageRail, ScrollStatement, WorkGrid } from "@/components/studio/Motion";
+import { HeroBuild } from "@/components/studio/HeroBuild";
+import { ScrollStatement } from "@/components/studio/Motion";
+import { Faq, FeaturedWork, Promises } from "@/components/studio/Showcase";
 import { ProcessTimeline } from "@/components/studio/ProcessTimeline";
 import { ContactCta, SectionHead, TechMarquee } from "@/components/studio/Sections";
 import { ServiceGrid } from "@/components/studio/ServiceGrid";
-import { projects } from "@/data/work";
 import { buildMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 
@@ -23,39 +24,23 @@ export default function HomePage() {
       <JsonLd data={websiteJsonLd()} />
 
       {/* Hero */}
-      <section className="container-x pt-32 pb-14 sm:pt-40">
-        <h1 className="text-[clamp(3.2rem,9vw,9.5rem)] leading-[0.92] tracking-[-0.035em]">
-          <span className="reveal-line" style={line(0)}>
-            <span>Websites, software</span>
-          </span>
-          <span className="reveal-line" style={line(1)}>
-            <span>
-              &amp; AI automation, <em className="text-muted">built</em>
+      <section className="container-x grid min-h-[100svh] content-center items-center gap-14 pt-28 pb-14 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-16">
+        <div>
+          <h1 className="text-[clamp(3rem,min(8vw,16svh),9rem)] leading-[0.92] tracking-[-0.035em]">
+            <span className="reveal-line" style={line(0)}>
+              <span>Websites, software</span>
             </span>
-          </span>
-          <span className="reveal-line" style={line(2)}>
-            <span>
-              <em className="text-muted">properly.</em>
+            <span className="reveal-line" style={line(1)}>
+              <span>&amp; AI automation,</span>
             </span>
-          </span>
-        </h1>
+            <span className="reveal-line" style={line(2)}>
+              <span className="whitespace-nowrap">
+                <em className="text-muted">built properly.</em>
+              </span>
+            </span>
+          </h1>
 
-        <div className="mt-14 grid gap-10 md:grid-cols-[1fr_minmax(0,26rem)] md:items-end">
-          <ul className="flex flex-wrap gap-2 animate-fade [animation-delay:0.5s]" aria-label="Recent projects">
-            {projects.map((p) => (
-              <li key={p.slug}>
-                <a
-                  href={p.href}
-                  {...(p.href?.startsWith("http") && { target: "_blank", rel: "noopener" })}
-                  className="inline-flex rounded-full bg-surface-2/70 px-3.5 py-1.5 text-sm transition-colors hover:bg-fg hover:text-ink"
-                >
-                  {p.client === "AJ Toolbox" ? p.title : p.client}
-                  {p.category === "Software" && " LMS"}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <div className="animate-fade [animation-delay:0.6s]">
+          <div className="mt-10 max-w-[30rem] animate-fade [animation-delay:0.6s]">
             <p className="text-lg leading-relaxed text-muted">
               We design and build the digital side of a business, from the website customers see to the systems your team
               runs on.
@@ -70,14 +55,14 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+
+        <div className="animate-fade [animation-delay:0.8s] mx-auto w-full max-w-[34rem]">
+          <HeroBuild />
+        </div>
       </section>
 
-      <div className="animate-fade [animation-delay:0.7s]">
-        <ImageRail />
-      </div>
-
       {/* Statement */}
-      <section className="container-x mt-32">
+      <section className="container-x mt-16">
         <p className="eyebrow mb-8">The studio</p>
         <ScrollStatement text="We're a small, hands-on studio. We take a few projects at a time and handle all of it: the design, the engineering, and the automation that keeps a business running after launch." />
       </section>
@@ -94,7 +79,7 @@ export default function HomePage() {
             </Link>
           }
         />
-        <WorkGrid />
+        <FeaturedWork />
       </section>
 
       {/* Services */}
@@ -111,6 +96,27 @@ export default function HomePage() {
       <section className="container-x mt-28">
         <SectionHead index="03" eyebrow="Process" title="Clear scope, fixed quotes, weekly progress." />
         <ProcessTimeline />
+      </section>
+
+      {/* Promises */}
+      <section className="container-x mt-32">
+        <SectionHead index="04" eyebrow="Working with us" title="What you can count on." />
+        <Promises />
+      </section>
+
+      {/* FAQ */}
+      <section className="container-x mt-32">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,22rem)_1fr]">
+          <div>
+            <p className="eyebrow flex items-center gap-3">
+              <span className="text-accent-deep">05</span>
+              <span className="h-px w-6 bg-line" />
+              FAQ
+            </p>
+            <h2 className="mt-5 text-[clamp(2.2rem,4vw,3.4rem)]">Questions, answered.</h2>
+          </div>
+          <Faq />
+        </div>
       </section>
 
       <ContactCta />

@@ -1,5 +1,5 @@
 import { PageHeader } from "@/components/layout/PageHeader";
-import { WorkGrid } from "@/components/studio/Motion";
+import { FeaturedWork } from "@/components/studio/Showcase";
 import { ContactCta } from "@/components/studio/Sections";
 import { buildMetadata } from "@/lib/seo";
 
@@ -18,8 +18,8 @@ export default function WorkPage() {
         title="Selected projects."
         intro="Client websites and software, plus the products we build in-house. Each one is live, or being built right now."
       />
-      <div className="container-x mt-16">
-        <WorkGrid detail />
+      <div className="container-x mt-20">
+        <FeaturedWork />
       </div>
       <ContactCta />
     </>

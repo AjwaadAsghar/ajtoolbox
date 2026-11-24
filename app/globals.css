@@ -354,7 +354,6 @@ body:has(#preloader[data-state="loading"]) :is(.reveal-line > span, .animate-fad
   content: ""; position: absolute; inset: auto -10% -60% auto; width: 60%; height: 120%; pointer-events: none;
   background: radial-gradient(closest-side, rgb(212 255 58 / 0.18), transparent);
 }
-.image-rail:hover .animate-\[marquee_60s_linear_infinite\] { animation-play-state: paused; }
 em { font-style: italic; }
 
 .cta-panel .btn-primary:hover { background: #fff; }
@@ -387,3 +386,19 @@ html.theme-anim, html.theme-anim * { transition: background-color 0.4s, color 0.
 .logo-dark { display: none; }
 html[data-theme="dark"] .logo-light { display: none; }
 html[data-theme="dark"] .logo-dark { display: block; }
+
+/* Hero live-build panel */
+.hero-build .hb-glow { position: absolute; inset: -12% -8%; z-index: -1; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--color-accent) 22%, transparent), transparent); filter: blur(30px); animation: hb-pulse 6s ease-in-out infinite; }
+.hero-build .hb-piece { opacity: 0; transform: translateY(10px) scale(0.98); filter: blur(4px); transition: opacity .6s var(--ease-out-expo), transform .8s var(--ease-out-expo), filter .6s; }
+.hero-build .hb-piece.hb-on { opacity: 1; transform: none; filter: none; }
+.hero-build .hb-swatch { background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--color-fg) 8%, transparent) 0 6px, transparent 6px 12px); transition: background .8s; }
+.hero-build .hb-swatch.hb-on { background: linear-gradient(135deg, var(--color-accent), color-mix(in srgb, var(--color-accent) 25%, #1f8a4c)); }
+.hero-build .hb-bar { transform-origin: bottom; transform: scaleY(0.1); transition: transform .7s var(--ease-out-expo); }
+.hero-build .hb-on .hb-bar { transform: none; }
+.hero-build .hb-chat { opacity: 0; transform: translateY(12px) scale(.9); transform-origin: bottom right; transition: opacity .5s, transform .6s var(--ease-out-expo); }
+.hero-build .hb-chat.hb-on { opacity: 1; transform: none; }
+.hero-build .hb-badge { border-radius: 999px; padding: 2px 8px; letter-spacing: .08em; transition: background .4s, color .4s; }
+.hero-build .hb-spin { display: block; animation: spin .8s linear infinite; }
+@keyframes hb-pulse { 50% { opacity: .55; transform: scale(.95); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .hero-build * { animation: none !important; transition: none !important; } }
